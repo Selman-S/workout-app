@@ -1,14 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import authService, { UserData, LoginData, RegisterData } from '../services/authService';
+import authService, { UserData, OnboardingData } from '../services/authService';
 
 interface AuthContextType {
   user: UserData | null;
   loading: boolean;
   error: string | null;
-  login: (data: LoginData) => Promise<void>;
-  register: (data: RegisterData) => Promise<void>;
   logout: () => void;
-  updateProfile: (data: Partial<RegisterData>) => Promise<void>;
+  updateProfile: (data: Partial<OnboardingData>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -19,42 +17,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const user = authService.getCurrentUser();
-    setUser(user);
-    setLoading(false);
+    const initAuth = async () => {
+      try {
+        const user = await authService.getCurrentUser();
+        setUser(user);
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    initAuth();
   }, []);
-
-  const login = async (loginData: LoginData) => {
-    try {
-      setError(null);
-      const userData = await authService.login(loginData);
-      setUser(userData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred during login');
-      throw err;
-    }
-  };
-
-  const register = async (registerData: RegisterData) => {
-    try {
-      setError(null);
-      const userData = await authService.register(registerData);
-      setUser(userData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred during registration');
-      throw err;
-    }
-  };
 
   const logout = () => {
     authService.logout();
     setUser(null);
   };
 
-  const updateProfile = async (userData: Partial<RegisterData>) => {
+  const updateProfile = async (userData: Partial<OnboardingData>) => {
     try {
       setError(null);
-      const updatedUser = await authService.updateProfile(userData);
+      if (!user?._id) throw new Error('No user found');
+      const updatedUser = await authService.updateUserProfile(user._id, userData);
       setUser(updatedUser);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred while updating profile');
@@ -68,8 +54,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         loading,
         error,
-        login,
-        register,
         logout,
         updateProfile,
       }}

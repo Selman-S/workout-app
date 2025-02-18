@@ -105,6 +105,7 @@ export default function DashboardPage() {
   ]);
 
   useEffect(() => {
+    console.log('Current user:', user);
     if (!loading && !user) {
       router.push('/login');
     }
@@ -243,8 +244,11 @@ export default function DashboardPage() {
         }
       }
 
-      setAchievements(newAchievements);
-      localStorage.setItem('achievements', JSON.stringify(newAchievements));
+      // Sadece başarılarda değişiklik varsa state'i güncelle
+      if (JSON.stringify(newAchievements) !== JSON.stringify(achievements)) {
+        setAchievements(newAchievements);
+        localStorage.setItem('achievements', JSON.stringify(newAchievements));
+      }
     };
 
     updateAchievements();

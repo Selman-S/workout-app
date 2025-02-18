@@ -1,5 +1,26 @@
 import axios from 'axios';
 
+export interface UserData {
+  _id: string;
+  name: string;
+  age?: number;
+  weight?: number;
+  height?: number;
+  fitnessLevel?: string;
+  goal?: string;
+  daysPerWeek?: number;
+}
+
+export interface OnboardingData {
+  name: string;
+  age?: number;
+  weight?: number;
+  height?: number;
+  fitnessLevel?: string;
+  goal?: string;
+  daysPerWeek?: number;
+}
+
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
@@ -17,33 +38,23 @@ api.interceptors.request.use((config) => {
 });
 
 export const authService = {
-  async login(email: string, password: string) {
+  async createUser(userData: OnboardingData) {
     try {
-      const response = await api.post('/auth/login', { email, password });
+      const response = await api.post('/users', userData);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userData', JSON.stringify(response.data.user));
       }
-      return response.data;
+      return response.data.user;
     } catch (error) {
       throw error;
     }
   },
 
-  async register(userData: {
-    name: string;
-    email: string;
-    password: string;
-    weight: number;
-    height: number;
-    age: number;
-    fitnessLevel: string;
-    weeklyGoal: number;
-  }) {
+  async updateUserProfile(userId: string, userData: Partial<OnboardingData>) {
     try {
-      const response = await api.post('/auth/register', userData);
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-      }
+      const response = await api.put(`/users/${userId}`, userData);
+      localStorage.setItem('userData', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       throw error;
@@ -52,23 +63,7 @@ export const authService = {
 
   async getCurrentUser() {
     try {
-      const response = await api.get('/auth/me');
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  },
-
-  async updateProfile(userData: {
-    name?: string;
-    weight?: number;
-    height?: number;
-    age?: number;
-    fitnessLevel?: string;
-    weeklyGoal?: number;
-  }) {
-    try {
-      const response = await api.put('/auth/profile', userData);
+      const response = await api.get('/users/me');
       return response.data;
     } catch (error) {
       throw error;
@@ -77,6 +72,7 @@ export const authService = {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('userData');
   },
 };
 
