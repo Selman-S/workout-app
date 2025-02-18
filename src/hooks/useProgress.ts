@@ -12,16 +12,24 @@ interface WorkoutProgress {
   exercises: ExerciseProgress[];
 }
 
-export const useProgress = (workoutId: string) => {
+const useProgress = (workoutId: string) => {
   const [progress, setProgress] = useState<WorkoutProgress | null>(null);
 
   // LocalStorage'dan ilerlemeyi yükle
   useEffect(() => {
-    const savedProgress = localStorage.getItem(`workout_${workoutId}`);
-    if (savedProgress) {
-      setProgress(JSON.parse(savedProgress));
-    } else {
-      // İlk kez başlatılıyorsa boş ilerleme oluştur
+    try {
+      const savedProgress = localStorage.getItem(`workout_${workoutId}`);
+      if (savedProgress) {
+        setProgress(JSON.parse(savedProgress));
+      } else {
+        // İlk kez başlatılıyorsa boş ilerleme oluştur
+        setProgress({
+          currentExerciseIndex: 0,
+          exercises: []
+        });
+      }
+    } catch (error) {
+      console.error('Error loading progress:', error);
       setProgress({
         currentExerciseIndex: 0,
         exercises: []
@@ -31,8 +39,12 @@ export const useProgress = (workoutId: string) => {
 
   // İlerlemeyi kaydet
   const saveProgress = (newProgress: WorkoutProgress) => {
-    setProgress(newProgress);
-    localStorage.setItem(`workout_${workoutId}`, JSON.stringify(newProgress));
+    try {
+      setProgress(newProgress);
+      localStorage.setItem(`workout_${workoutId}`, JSON.stringify(newProgress));
+    } catch (error) {
+      console.error('Error saving progress:', error);
+    }
   };
 
   // Egzersiz ilerlemesini güncelle
