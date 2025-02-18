@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Workout App
 
-## Getting Started
+Kişisel antrenman takip uygulaması. Bu uygulama ile farklı zorluk seviyelerindeki antrenman programlarını takip edebilir, egzersizleri zamanlayabilir ve ilerlemenizi kaydedebilirsiniz.
 
-First, run the development server:
+## Özellikler
 
+- Farklı zorluk seviyelerinde antrenman programları
+- Egzersiz zamanlayıcısı
+- Dinlenme süresi takibi
+- Karanlık/Aydınlık tema desteği
+- Responsive tasarım
+
+## Teknolojiler
+
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- React Hooks
+
+## Kurulum
+
+1. Repoyu klonlayın:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/workout-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Proje dizinine gidin:
+```bash
+cd workout-app
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Bağımlılıkları yükleyin:
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Geliştirme sunucusunu başlatın:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
-To learn more about Next.js, take a look at the following resources:
+## Kullanım
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Ana sayfada mevcut antrenman programlarını görebilirsiniz
+2. Zorluk seviyesine göre filtreleme yapabilirsiniz
+3. Bir antrenman seçtiğinizde detay sayfasına yönlendirilirsiniz
+4. Detay sayfasında egzersizleri takip edebilir ve zamanlayıcıyı kullanabilirsiniz
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Katkıda Bulunma
 
-## Deploy on Vercel
+1. Bu repoyu fork edin
+2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add some amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Bir Pull Request oluşturun
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Lisans
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+
+## İletişim
+
+GitHub: [@yourusername](https://github.com/yourusername)
