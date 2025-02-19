@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import authService from '@/services/authService';
+import { parseCookies } from 'nookies';
 
 interface User {
   name: string;
@@ -17,10 +18,22 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Public sayfalar listesi
+  const publicPaths = ['/', '/login', '/register', '/about'];
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         setLoading(true);
+        const cookies = parseCookies();
+        
+        // Eğer token yoksa veya public sayfadaysak, kullanıcı bilgisini getirme
+        if (!cookies.token || publicPaths.includes(pathname)) {
+          setUser(null);
+          return;
+        }
+
+        // Token varsa ve protected sayfadaysak kullanıcı bilgisini getir
         const userData = await authService.getCurrentUser();
         setUser(userData);
       } catch (error) {

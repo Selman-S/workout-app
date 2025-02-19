@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/nookies": "^1.1.0",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
     "next": "15.1.7",
+    "nookies": "^2.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

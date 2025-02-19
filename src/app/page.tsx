@@ -87,34 +87,40 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="bg-gray-900/80 backdrop-blur-lg rounded-xl overflow-hidden group hover:bg-gray-900/90 transition-all duration-300">
-                <div className="relative h-48">
+              <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-lg rounded-xl overflow-hidden group hover:bg-gray-800/90 transition-all duration-300 transform hover:-translate-y-1 animate-[fadeIn_1.2s_ease-out]">
+                <div className="relative h-48 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
                   <Image
                     src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=800"
                     alt="Progress Tracking"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     style={{ objectFit: 'cover' }}
+                    className="group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">İlerleme Takibi</h3>
+                  <h3 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500 mb-2">
+                    İlerleme Takibi
+                  </h3>
                   <p className="text-gray-400">Gelişiminizi günlük olarak takip edin</p>
                 </div>
               </div>
 
-              <div className="bg-gray-900/80 backdrop-blur-lg rounded-xl overflow-hidden group hover:bg-gray-900/90 transition-all duration-300">
-                <div className="relative h-48">
+              <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-lg rounded-xl overflow-hidden group hover:bg-gray-800/90 transition-all duration-300 transform hover:-translate-y-1 animate-[fadeIn_1.2s_ease-out]">
+                <div className="relative h-48 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
                   <Image
                     src="https://images.unsplash.com/photo-1532029837206-abbe2b7620e3?auto=format&fit=crop&w=800"
                     alt="Achievement System"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     style={{ objectFit: 'cover' }}
+                    className="group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">Başarı Sistemi</h3>
+                  <h3 className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-500 mb-2">Başarı Sistemi</h3>
                   <p className="text-gray-400">Her adımda yeni başarılar kazanın</p>
                 </div>
               </div>

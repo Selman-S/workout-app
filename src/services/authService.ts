@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { parseCookies } from 'nookies';
 
 export interface UserData {
   _id: string;
@@ -39,9 +40,11 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 && !window.location.pathname.includes('/login')) {
-      // Sadece login sayfasında değilsek yönlendir
-      window.location.href = '/login';
+    if (error.response?.status === 401) {
+      // Sadece API çağrısı başarısız olduğunda yönlendir
+      if (!window.location.pathname.includes('/login')) {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
@@ -83,7 +86,9 @@ export const authService = {
 
   async updateUserProfile(userId: string, userData: Partial<OnboardingData>) {
     try {
-      console.log('Updating user profile with data:', userData);
+      const cookies = parseCookies();
+      if (!cookies.token) return null;
+
       const response = await api.put(`/users/${userId}`, userData);
       return response.data;
     } catch (error) {
@@ -98,6 +103,9 @@ export const authService = {
 
   async getCurrentUser() {
     try {
+      const cookies = parseCookies();
+      if (!cookies.token) return null;
+
       const response = await api.get('/users/me');
       return response.data;
     } catch (error) {
@@ -119,6 +127,9 @@ export const authService = {
 
   async generateWorkoutPlan(userId: string, userData: any) {
     try {
+      const cookies = parseCookies();
+      if (!cookies.token) return null;
+
       const response = await api.post(`/users/${userId}/workout-plan`, userData);
       return response.data;
     } catch (error) {
