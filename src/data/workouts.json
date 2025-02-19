@@ -1,261 +1,229 @@
 {
-  "workouts": [
-    {
-      "id": 1,
-      "title": "Üst Vücut & Core (Güç ve Denge)",
-      "description": "Omuz, göğüs, sırt ve karın kaslarını güçlendirmeye yönelik antrenman",
-      "difficulty": "Orta",
-      "duration": "40-60 dakika",
-      "day": "Pazartesi",
-      "exercises": [
+  "exercises": {
+    "upper_body": {
+      "chest": [
         {
-          "id": 1,
-          "name": "Şınav (Push-ups)",
-          "sets": 3,
-          "reps": 15,
-          "restTime": 20,
-          "workTime": 40,
-          "description": "Kollarını omuz genişliğinde aç, göğsünü yere indirip yukarı it. Daha kolay versiyon için dizleri yere koyabilirsin."
-        },
+          "id": "pushup",
+          "name": "Push-up",
+          "targetMuscles": ["chest", "shoulders", "triceps"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "8-10", "rest": 60 },
+            "intermediate": { "sets": 3, "reps": "12-15", "rest": 45 },
+            "advanced": { "sets": 4, "reps": "15-20", "rest": 30 }
+          },
+          "gender": "both",
+          "description": "Göğüs, omuz ve triceps kaslarını çalıştıran temel üst vücut egzersizi",
+          "instructions": [
+            "Ellerinizi omuz genişliğinde açın",
+            "Vücudunuzu düz bir çizgi halinde tutun",
+            "Göğsünüzü yere yaklaştırıp geri itin"
+          ],
+          "variations": [
+            { "name": "Diz Üstü Push-up", "difficulty": "beginner" },
+            { "name": "İncline Push-up", "difficulty": "beginner" },
+            { "name": "Decline Push-up", "difficulty": "advanced" }
+          ],
+          "video_url": "https://example.com/pushup-tutorial"
+        }
+      ],
+      "back": [
         {
-          "id": 2,
-          "name": "Süpermen Hareketi",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 20,
-          "restTime": 20,
-          "description": "Yüzüstü yat, kolları ve bacakları yukarı kaldır, sırtını sık."
-        },
-        {
-          "id": 3,
-          "name": "Plank Shoulder Tap",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 30,
-          "restTime": 20,
-          "description": "Şınav pozisyonunda sırayla ellerini omuzlarına dokunarak dengeni koru."
-        },
-        {
-          "id": 4,
-          "name": "Dips (Sandalyede Triceps)",
-          "sets": 3,
-          "reps": 12,
-          "restTime": 20,
-          "workTime": 40,
-          "description": "Bir sandalye kullanarak ellerinle kendini yukarı-aşağı indir."
-        },
-        {
-          "id": 5,
-          "name": "Dumbbell Shoulder Press",
-          "sets": 3,
-          "reps": 12,
-          "restTime": 20,
-          "workTime": 40,
-          "description": "İki elini başının üstüne kaldır, yavaşça indir. Ağırlıksız da yapabilirsin."
+          "id": "pullup",
+          "name": "Pull-up",
+          "targetMuscles": ["back", "biceps", "shoulders"],
+          "equipment": "pull-up bar",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "3-5", "rest": 90 },
+            "intermediate": { "sets": 3, "reps": "8-10", "rest": 60 },
+            "advanced": { "sets": 4, "reps": "12-15", "rest": 45 }
+          },
+          "gender": "both",
+          "description": "Sırt ve biceps kaslarını güçlendiren temel üst vücut egzersizi",
+          "instructions": [
+            "Barı omuz genişliğinde kavrayın",
+            "Çenenizi barın üzerine çekin",
+            "Kontrollü bir şekilde başlangıç pozisyonuna dönün"
+          ],
+          "variations": [
+            { "name": "Assisted Pull-up", "difficulty": "beginner" },
+            { "name": "Wide-grip Pull-up", "difficulty": "intermediate" },
+            { "name": "L-sit Pull-up", "difficulty": "advanced" }
+          ]
         }
       ]
     },
-    {
-      "id": 2,
-      "title": "Kardiyo & Mobilite",
-      "description": "Kalp sağlığını geliştirmek, yağ yakımını hızlandırmak ve eklem hareketliliğini artırmak için antrenman",
-      "difficulty": "Başlangıç",
-      "duration": "30-40 dakika",
-      "day": "Salı",
-      "exercises": [
+    "lower_body": {
+      "legs": [
         {
-          "id": 1,
-          "name": "Hızlı Yürüyüş",
-          "sets": 1,
-          "reps": 1,
-          "workTime": 2400,
-          "restTime": 0,
-          "description": "6-7 km/h hızda tempolu yürüyüş"
-        },
-        {
-          "id": 2,
-          "name": "İp Atlama",
-          "sets": 10,
-          "reps": 1,
-          "workTime": 30,
-          "restTime": 30,
-          "description": "30 saniye ip atla, 30 saniye yürü"
-        },
-        {
-          "id": 3,
-          "name": "Cat-Cow Stretch",
-          "sets": 3,
-          "reps": 10,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Omurganı açmak için kedi-deve hareketi yap"
-        },
-        {
-          "id": 4,
-          "name": "Göğüs Açma Hareketi",
-          "sets": 3,
-          "reps": 15,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Elleri arkada birleştirip yukarı kaldır"
+          "id": "squat",
+          "name": "Squat",
+          "targetMuscles": ["quadriceps", "hamstrings", "glutes"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "10-12", "rest": 60 },
+            "intermediate": { "sets": 3, "reps": "12-15", "rest": 45 },
+            "advanced": { "sets": 4, "reps": "15-20", "rest": 30 }
+          },
+          "gender": "both",
+          "description": "Bacak ve kalça kaslarını güçlendiren temel alt vücut egzersizi",
+          "instructions": [
+            "Ayaklarınızı omuz genişliğinde açın",
+            "Kalçanızı geriye doğru iterek çömelin",
+            "Dizlerinizi 90 derece bükün"
+          ],
+          "variations": [
+            { "name": "Wall Squat", "difficulty": "beginner" },
+            { "name": "Jump Squat", "difficulty": "advanced" }
+          ]
         }
       ]
     },
-    {
-      "id": 3,
-      "title": "Alt Vücut & Core Güç",
-      "description": "Bacak, kalça ve core bölgesini güçlendirmeye yönelik antrenman",
-      "difficulty": "Orta",
-      "duration": "40-60 dakika",
-      "day": "Çarşamba",
-      "exercises": [
+    "core": {
+      "abs": [
         {
-          "id": 1,
-          "name": "Squat (Çömelme)",
-          "sets": 3,
-          "reps": 15,
-          "workTime": 40,
-          "restTime": 20,
-          "description": "Ayaklarını omuz genişliğinde aç, kalçanı geriye vererek çömel"
-        },
-        {
-          "id": 2,
-          "name": "Lunge (Hamle)",
-          "sets": 3,
-          "reps": 10,
-          "workTime": 40,
-          "restTime": 20,
-          "description": "Bir bacağınla öne adım at, dizini 90 derece bük (Her bacak için)"
-        },
-        {
-          "id": 3,
-          "name": "Glute Bridge",
-          "sets": 3,
-          "reps": 15,
-          "workTime": 40,
-          "restTime": 20,
-          "description": "Sırt üstü yat, kalçanı yukarı kaldırıp indir"
-        },
-        {
-          "id": 4,
-          "name": "Russian Twists",
-          "sets": 3,
-          "reps": 20,
-          "workTime": 40,
-          "restTime": 20,
-          "description": "Yere otur, sağa ve sola dönerek karın kaslarını çalıştır"
-        },
-        {
-          "id": 5,
-          "name": "Leg Raises",
-          "sets": 3,
-          "reps": 12,
-          "workTime": 40,
-          "restTime": 20,
-          "description": "Sırt üstü yat, bacaklarını yukarı kaldır ve yavaşça indir"
+          "id": "plank",
+          "name": "Plank",
+          "targetMuscles": ["abs", "lower_back", "shoulders"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "duration": 20, "sets": 2, "rest": 45 },
+            "intermediate": { "duration": 40, "sets": 3, "rest": 30 },
+            "advanced": { "duration": 60, "sets": 4, "rest": 20 }
+          },
+          "gender": "both",
+          "description": "Karın ve core bölgesini güçlendiren statik egzersiz",
+          "instructions": [
+            "Dirsekleriniz omuz hizasında olacak şekilde pozisyon alın",
+            "Vücudunuzu düz bir çizgi halinde tutun",
+            "Karın kaslarınızı sıkın"
+          ]
         }
       ]
     },
-    {
-      "id": 4,
-      "title": "Tam Vücut Fonksiyonel",
-      "description": "Dayanıklılığı artırmak ve tüm kas gruplarını çalıştırmak için devre antrenmanı",
-      "difficulty": "İleri",
-      "duration": "40 dakika",
-      "day": "Cuma",
-      "exercises": [
+    "cardio": {
+      "hiit": [
         {
-          "id": 1,
-          "name": "Jump Squat",
-          "sets": 3,
-          "reps": 10,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Sıçramalı squat hareketi"
-        },
+          "id": "burpee",
+          "name": "Burpee",
+          "targetMuscles": ["full_body"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "5-8", "rest": 60 },
+            "intermediate": { "sets": 3, "reps": "10-12", "rest": 45 },
+            "advanced": { "sets": 4, "reps": "15-20", "rest": 30 }
+          },
+          "gender": "both",
+          "description": "Tüm vücudu çalıştıran yüksek yoğunluklu kardio egzersizi",
+          "instructions": [
+            "Ayakta başlayın",
+            "Çömelip ellerinizi yere koyun",
+            "Bacaklarınızı geriye atıp şınav pozisyonu alın",
+            "Tekrar çömelme pozisyonuna gelin",
+            "Zıplayarak başlangıç pozisyonuna dönün"
+          ]
+        }
+      ],
+      "steady_state": [
         {
-          "id": 2,
-          "name": "Burpees",
-          "sets": 3,
-          "reps": 10,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Şınav pozisyonuna in, ayağa kalk ve zıpla"
-        },
-        {
-          "id": 3,
-          "name": "Dumbbell Deadlift",
-          "sets": 3,
-          "reps": 12,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Ağırlıklı veya ağırlıksız deadlift hareketi"
-        },
-        {
-          "id": 4,
-          "name": "Mountain Climbers",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Plank pozisyonunda dizleri göğse çek"
-        },
-        {
-          "id": 5,
-          "name": "Hollow Body Hold",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 30,
-          "restTime": 10,
-          "description": "Sırt üstü yat, kol ve bacakları havada tut"
+          "id": "running",
+          "name": "Koşu",
+          "targetMuscles": ["legs", "cardio"],
+          "equipment": "none",
+          "difficulty": {
+            "beginner": { "duration": 20, "intensity": "low" },
+            "intermediate": { "duration": 30, "intensity": "medium" },
+            "advanced": { "duration": 45, "intensity": "high" }
+          },
+          "gender": "both",
+          "description": "Kardiyovasküler dayanıklılığı artıran temel aerobik egzersiz"
         }
       ]
+    }
+  },
+  "workout_templates": {
+    "weight_loss": {
+      "beginner": {
+        "cardio_ratio": 0.5,
+        "strength_ratio": 0.3,
+        "hiit_ratio": 0.2
+      },
+      "intermediate": {
+        "cardio_ratio": 0.4,
+        "strength_ratio": 0.3,
+        "hiit_ratio": 0.3
+      },
+      "advanced": {
+        "cardio_ratio": 0.3,
+        "strength_ratio": 0.3,
+        "hiit_ratio": 0.4
+      }
+    },
+    "muscle_gain": {
+      "beginner": {
+        "strength_ratio": 0.7,
+        "cardio_ratio": 0.2,
+        "hiit_ratio": 0.1
+      },
+      "intermediate": {
+        "strength_ratio": 0.8,
+        "cardio_ratio": 0.1,
+        "hiit_ratio": 0.1
+      },
+      "advanced": {
+        "strength_ratio": 0.8,
+        "cardio_ratio": 0.1,
+        "hiit_ratio": 0.1
+      }
+    },
+    "general_fitness": {
+      "beginner": {
+        "cardio_ratio": 0.4,
+        "strength_ratio": 0.4,
+        "hiit_ratio": 0.2
+      },
+      "intermediate": {
+        "cardio_ratio": 0.3,
+        "strength_ratio": 0.4,
+        "hiit_ratio": 0.3
+      },
+      "advanced": {
+        "cardio_ratio": 0.3,
+        "strength_ratio": 0.4,
+        "hiit_ratio": 0.3
+      }
+    }
+  },
+  "body_parts": [
+    {
+      "id": "chest",
+      "name": "Göğüs",
+      "exercises": ["pushup", "dips", "bench_press"]
     },
     {
-      "id": 5,
-      "title": "Kardiyo & Esneme",
-      "description": "Yağ yakımı ve esneklik artırma odaklı antrenman",
-      "difficulty": "Başlangıç",
-      "duration": "30-40 dakika",
-      "day": "Cumartesi",
-      "exercises": [
-        {
-          "id": 1,
-          "name": "Hafif Tempo Koşu",
-          "sets": 1,
-          "reps": 1,
-          "workTime": 2400,
-          "restTime": 0,
-          "description": "30-40 dakika hafif tempoda koşu veya hızlı yürüyüş"
-        },
-        {
-          "id": 2,
-          "name": "Hamstring Stretch",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 20,
-          "restTime": 10,
-          "description": "Bacak arkası germe hareketi"
-        },
-        {
-          "id": 3,
-          "name": "Spinal Twist Stretch",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 20,
-          "restTime": 10,
-          "description": "Kalça ve omurga döndürme hareketi"
-        },
-        {
-          "id": 4,
-          "name": "Chest Opener Stretch",
-          "sets": 3,
-          "reps": 1,
-          "workTime": 15,
-          "restTime": 10,
-          "description": "Omuz ve göğüs açma germe hareketi"
-        }
-      ]
+      "id": "back",
+      "name": "Sırt",
+      "exercises": ["pullup", "row", "lat_pulldown"]
+    },
+    {
+      "id": "legs",
+      "name": "Bacak",
+      "exercises": ["squat", "lunges", "leg_press"]
+    },
+    {
+      "id": "arms",
+      "name": "Kollar",
+      "exercises": ["bicep_curl", "tricep_extension", "hammer_curl"]
+    },
+    {
+      "id": "shoulders",
+      "name": "Omuzlar",
+      "exercises": ["shoulder_press", "lateral_raise", "front_raise"]
+    },
+    {
+      "id": "abs",
+      "name": "Karın",
+      "exercises": ["plank", "crunches", "leg_raises"]
     }
   ]
 } 

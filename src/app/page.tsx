@@ -44,7 +44,7 @@ export default function HomePage() {
                 </p>
                 <div className="relative group">
                   <Link
-                    href="/onboarding/step1"
+                    href="/register"
                     className="relative inline-block px-12 py-5 bg-gradient-to-r from-orange-500 via-red-500 to-red-600 text-white text-lg font-semibold rounded-lg hover:from-orange-400 hover:via-red-400 hover:to-red-500 transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 shadow-xl hover:shadow-2xl"
                   >
                     Hemen Başla
@@ -54,7 +54,7 @@ export default function HomePage() {
               <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500 group animate-[fadeIn_1s_ease-out]">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
                 <Image
-                  src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=1200"
+                  src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1200"
                   alt="Fitness Training"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -289,7 +289,7 @@ export default function HomePage() {
                   Profesyonel antrenman programları ve beslenme tavsiyeleriyle hedeflerine ulaş.
                 </p>
                 <Link
-                  href="/onboarding/step1"
+                  href="/register"
                   className="inline-block px-8 py-4 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-400 transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
                 >
                   Şimdi Başla
