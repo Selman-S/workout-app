@@ -3,9 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
-import authService from '@/services/authService';
 
 interface ValidationRules {
   age: { min: number; max: number; message: string };
@@ -47,8 +45,8 @@ export default function OnboardingStep2() {
   useEffect(() => {
     const loadProfileData = async () => {
       try {
-        if (user?.id) {
-          const profile = await authService.getCurrentUser();
+        if (user?.data?._id) {
+          const profile = user
           if (profile?.data) {
             setUserData({
               age: profile.data.age?.toString() || '',

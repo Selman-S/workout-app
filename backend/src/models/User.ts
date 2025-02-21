@@ -19,6 +19,8 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  hasCompletedOnboarding: boolean;
+  
 }
 
 const userSchema = new Schema<IUser>({
@@ -77,6 +79,10 @@ const userSchema = new Schema<IUser>({
   workoutLocation: {
     type: String,
     enum: ['home', 'gym'],
+  },
+  hasCompletedOnboarding: {
+    type: Boolean,
+    default: false,
   },
 }, {
   timestamps: true,

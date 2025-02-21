@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import authService from '@/services/authService';
-
+import { useAuthStore } from '@/store/authStore';
+import axios from '@/lib/axios';
 interface User {
   name: string;
   hasCompletedOnboarding: boolean;
@@ -33,25 +33,26 @@ interface User {
 }
 
 export default function WorkoutPage() {
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useAuthStore();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [workoutPlan, setWorkoutPlan] = useState<any>(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await authService.getCurrentUser();
-        setUser(userData);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-        router.push('/login');
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchUserData();
-  }, [router]);
+    console.log("user:", user);
+    
+
+    const fetchWorkoutPlan = async () => {
+      // const response = await axios.get('/api/workout-plan');
+      const response = JSON.parse(localStorage.getItem('workoutProgram') || '{}');
+      console.log("response:", response);
+      setWorkoutPlan(response);
+      setLoading(false);
+    };
+    fetchWorkoutPlan();
+  }, [user]);
+
 
   if (loading) {
     return (
@@ -65,7 +66,7 @@ export default function WorkoutPage() {
     return null;
   }
 
-  if (!user.hasCompletedOnboarding) {
+  if (!user?.data?.hasCompletedOnboarding) {
     return (
       <div className="relative min-h-screen bg-gray-900 pt-16">
         {/* Background */}
@@ -113,9 +114,10 @@ export default function WorkoutPage() {
     );
   }
 
-  if (!user.workoutPlan) {
+  if (!workoutPlan) {
+
     return (
-      <div className="relative min-h-screen bg-gray-900">
+      <div className="relative min-h-screen bg-gray-900 pt-16">
         {/* Background */}
         <div className="fixed inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-500/20 mix-blend-overlay"></div>
@@ -162,7 +164,7 @@ export default function WorkoutPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gray-900">
+    <div className="relative min-h-screen bg-gray-900 pt-16">
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 to-red-500/20 mix-blend-overlay"></div>
@@ -186,7 +188,7 @@ export default function WorkoutPage() {
           <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-8 shadow-xl border border-gray-700/50">
             <h2 className="text-2xl font-bold text-white mb-6">Bugünün Antrenmanı</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {user.workoutPlan.workouts.map((workout: any, workoutIndex: number) => (
+              {workoutPlan.workouts.map((workout: any, workoutIndex: number) => (
                 <div key={`workout-${workoutIndex}-${workout.dayName}`} className="bg-gray-700/50 rounded-lg p-6">
                   <div className="flex justify-between items-center mb-4">
                     <h3 className="text-xl font-semibold text-white">{workout.dayName}</h3>
@@ -255,15 +257,15 @@ export default function WorkoutPage() {
                     <div 
                       className="h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"
                       style={{ 
-                        width: `${((user.workoutPlan?.progress?.completedWorkouts || 0) / 
-                        (user.workoutPlan?.progress?.totalWorkouts || 1)) * 100}%` 
+                        width: `${((workoutPlan?.progress?.completedWorkouts || 0) / 
+                        (workoutPlan?.progress?.totalWorkouts || 1)) * 100}%` 
                       }}
                     ></div>
                   </div>
                 </div>
                 <span className="ml-4 text-white">
-                  {user.workoutPlan?.progress?.completedWorkouts || 0}/
-                  {user.workoutPlan?.progress?.totalWorkouts || 0}
+                  {workoutPlan?.progress?.completedWorkouts || 0}/
+                  {workoutPlan?.progress?.totalWorkouts || 0}
                 </span>
               </div>
             </div>
@@ -271,18 +273,18 @@ export default function WorkoutPage() {
             <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-gray-700/50">
               <h3 className="text-lg font-semibold text-white mb-4">Program Hedefi</h3>
               <p className="text-gray-400">
-                {user.goal === 'weight-loss' && 'Yağ Yakımı'}
-                {user.goal === 'muscle-gain' && 'Kas Kazanımı'}
-                {user.goal === 'endurance' && 'Dayanıklılık'}
-                {user.goal === 'general-fitness' && 'Genel Fitness'}
+                {workoutPlan?.goal === 'weight-loss' && 'Yağ Yakımı'}
+                {workoutPlan?.goal === 'muscle-gain' && 'Kas Kazanımı'}
+                {workoutPlan?.goal === 'endurance' && 'Dayanıklılık'}
+                {workoutPlan?.goal === 'general-fitness' && 'Genel Fitness'}
               </p>
             </div>
 
             <div className="bg-gray-800/80 backdrop-blur-sm rounded-xl p-6 shadow-xl border border-gray-700/50">
               <h3 className="text-lg font-semibold text-white mb-4">Son Antrenman</h3>
               <p className="text-gray-400">
-                {user.workoutPlan?.progress?.lastWorkout ? (
-                  new Date(user.workoutPlan.progress.lastWorkout).toLocaleDateString('tr-TR')
+                {workoutPlan?.progress?.lastWorkout ? (
+                  new Date(workoutPlan.progress.lastWorkout).toLocaleDateString('tr-TR')
                 ) : (
                   'Henüz antrenman yapılmadı'
                 )}

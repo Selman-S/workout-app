@@ -11,6 +11,42 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+interface ExerciseDifficulty {
+  sets: number;
+  reps?: string;
+  rest: number;
+  duration?: number;
+}
+
+interface WorkoutExercise {
+  id: string;
+  name: string;
+  description: string;
+  difficulty: {
+    beginner: ExerciseDifficulty;
+    intermediate: ExerciseDifficulty;
+    advanced: ExerciseDifficulty;
+  };
+}
+
+interface Exercise {
+  id: string;
+  name: string;
+  description: string;
+  sets: number;
+  reps: string;
+  workTime?: number;
+  restTime: number;
+}
+
+interface Workout {
+  id: string;
+  title: string;
+  day: string;
+  difficulty: string;
+  exercises: Exercise[];
+}
+
 // Ana sayfa bileşeni
 export default function WorkoutPage({ params }: PageProps) {
   return (
@@ -49,6 +85,8 @@ function WorkoutContentWrapper({ params }: { params: Promise<{ id: string }> }) 
 // Ana içerik bileşeni
 function WorkoutContent({ id }: { id: string }) {
   const router = useRouter();
+  
+  // Tüm state'leri en üstte tanımla
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [isResting, setIsResting] = useState(false);
   const [currentSet, setCurrentSet] = useState(1);
@@ -57,11 +95,9 @@ function WorkoutContent({ id }: { id: string }) {
   const [isTimerStarted, setIsTimerStarted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [shouldHandleComplete, setShouldHandleComplete] = useState(false);
+  const [workout, setWorkout] = useState<Workout | undefined>();
 
-  const workout = workoutData.workouts.find(
-    (w) => w.id === parseInt(id)
-  );
-
+  // Progress hook'unu çağır
   const {
     progress,
     updateExerciseProgress,
@@ -70,7 +106,48 @@ function WorkoutContent({ id }: { id: string }) {
     getCompletionPercentage,
   } = useProgress(id);
 
-  // İlerlemeyi yükle
+  // Değişkenleri tanımla
+  const currentExercise = workout?.exercises[currentExerciseIndex];
+  const completionPercentage = getCompletionPercentage();
+  const lastCompleted = getLastCompleted();
+
+  // Callback'leri tanımla
+  const handleTimerComplete = useCallback(() => {
+    setShouldHandleComplete(true);
+  }, []);
+
+  // Effect hook'larını tanımla
+  useEffect(() => {
+    // JSON'dan egzersiz verilerini al ve workout'u oluştur
+    const selectedExercises = [
+      workoutData.exercises.upper_body.chest[0],
+      workoutData.exercises.lower_body.legs[0],
+      workoutData.exercises.core.abs[0]
+    ] as WorkoutExercise[];
+
+    const mappedWorkout: Workout = {
+      id: id,
+      title: "Günlük Antrenman",
+      day: "Gün 1",
+      difficulty: "Başlangıç",
+      exercises: selectedExercises.map(ex => {
+        const difficulty = ex.difficulty.beginner;
+        const reps = difficulty.reps || (difficulty.duration ? `${difficulty.duration}s` : '10');
+        return {
+          id: ex.id,
+          name: ex.name,
+          description: ex.description,
+          sets: difficulty.sets,
+          reps,
+          restTime: difficulty.rest,
+          workTime: difficulty.duration || 45
+        };
+      })
+    };
+
+    setWorkout(mappedWorkout);
+  }, [id]);
+
   useEffect(() => {
     if (progress && workout) {
       setCurrentExerciseIndex(progress.currentExerciseIndex || 0);
@@ -80,35 +157,8 @@ function WorkoutContent({ id }: { id: string }) {
     }
   }, [progress, workout]);
 
-  if (!workout) {
-    return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Antrenman bulunamadı
-          </h1>
-          <button
-            onClick={() => router.push('/')}
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Ana Sayfaya Dön
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  const currentExercise = workout.exercises[currentExerciseIndex];
-  const completionPercentage = getCompletionPercentage();
-  const lastCompleted = getLastCompleted();
-
-  const handleTimerComplete = useCallback(() => {
-    setShouldHandleComplete(true);
-  }, []);
-
-  // Timer tamamlandığında state güncellemelerini yönet
   useEffect(() => {
-    if (!shouldHandleComplete || !workout) return;
+    if (!shouldHandleComplete || !workout || !currentExercise) return;
 
     if (isResting) {
       setIsResting(false);
@@ -146,6 +196,24 @@ function WorkoutContent({ id }: { id: string }) {
 
     setShouldHandleComplete(false);
   }, [shouldHandleComplete, isResting, currentSet, currentExercise, currentExerciseIndex, workout, updateExerciseProgress]);
+
+  if (!workout || !currentExercise) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Antrenman bulunamadı
+          </h1>
+          <button
+            onClick={() => router.push('/')}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Ana Sayfaya Dön
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const nextExercise = () => {
     if (currentExerciseIndex < workout.exercises.length - 1) {

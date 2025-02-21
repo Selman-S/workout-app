@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
-import authService from '@/services/authService';
 import { useAuthStore } from '@/store/authStore';
 
 interface FitnessGoal {
@@ -69,7 +67,7 @@ export default function OnboardingStep3() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const { user } = useAuthStore();
+  const { user, updateProfile } = useAuthStore();
   const step2Data = JSON.parse(localStorage.getItem('step2Data') || '{}');
   const [userData, setUserData] = useState({
     height: step2Data?.height || '',
@@ -79,9 +77,33 @@ export default function OnboardingStep3() {
     fitnessGoals: step2Data?.fitnessGoals || 'general-fitness',
     experienceLevels: step2Data?.experienceLevels || 'beginner', 
     workoutDurations: step2Data?.workoutDurations || 30,
-    workoutLocation: step2Data?.workoutLocation || 'home'
+    workoutLocation: step2Data?.workoutLocation || 'gym'
   });
 
+  // Profil bilgilerini yükle
+  useEffect(() => {
+    const loadProfileData = async () => {
+      try {
+        if (user?.data?._id) {
+          const profile = user
+          if (profile?.data) {
+            setUserData(prevData => ({
+              ...prevData,
+              fitnessGoals: profile.data.goal || prevData.fitnessGoals,
+              experienceLevels: profile.data.fitnessLevel || prevData.experienceLevels,
+              workoutDurations: profile.data.workoutDuration || prevData.workoutDurations,
+              workoutLocation: profile.data.workoutLocation || prevData.workoutLocation
+            }));
+          }
+        }
+      } catch (err) {
+        console.error('Profil yüklenirken hata:', err);
+      }
+    };
+
+    loadProfileData();
+  }, [user]);
+console.log(userData);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,12 +128,12 @@ console.log("user:", user);
         fitnessLevel: userData.experienceLevels as 'beginner' | 'intermediate' | 'advanced',
         goal: userData.fitnessGoals as 'muscle_gain' | 'fat_loss' | 'endurance' | 'general_fitness',
         workoutDuration: userData.workoutDurations,
-        workoutLocation: 'gym' as const
+        workoutLocation: userData.workoutLocation as 'gym' | 'home'
       };
 
       // Profil güncelleme
-      await authService.updateProfile(user.data._id, profileData);
-
+      await updateProfile(profileData);
+console.log("profileData:", profileData);
       // Mock program oluştur - hedef ve seviyeye göre özelleştirilmiş
       const mockProgram = generateWorkoutProgram(profileData);
 

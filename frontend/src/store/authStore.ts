@@ -9,6 +9,15 @@ interface User {
     name: string;
     email: string;
     role: string;
+    age?: number;
+    gender?: 'male' | 'female';
+    height?: number;
+    weight?: number;
+    goal?: 'muscle_gain' | 'fat_loss' | 'endurance' | 'general_fitness';
+    fitnessLevel?: 'beginner' | 'intermediate' | 'advanced';
+    workoutDuration?: number;
+    workoutLocation?: 'gym' | 'home';
+    hasCompletedOnboarding?: boolean;
   }
 }
 
@@ -21,6 +30,7 @@ interface AuthState {
   register: (userData: RegisterData) => Promise<void>;
   logout: () => void;
   checkAuth: () => Promise<void>;
+  updateProfile: (profileData: Partial<User['data']>) => Promise<void>;
 }
 
 interface RegisterData {
@@ -147,7 +157,18 @@ export const useAuthStore = create<AuthState>()(
             error: null
           });
         }
-      }
+      },
+
+      updateProfile: async (profileData: Partial<User['data']>) => {
+        try {
+          const { data } = await axios.put('/auth/update-profile', profileData);
+          set({ user: data });
+        } catch (error) {
+          console.error('Profil güncellenirken hata:', error);
+        }
+      },
+
+     
     }),
     {
       name: 'auth-storage',

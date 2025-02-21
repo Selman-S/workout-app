@@ -34,6 +34,7 @@ export const register = async (req: Request, res: Response) => {
       email,
       password,
       name,
+      hasCompletedOnboarding: false,  
     }) as IUser;
 
     // Token oluşturma
@@ -42,12 +43,7 @@ export const register = async (req: Request, res: Response) => {
     res.status(201).json({
       success: true,
       token,
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-      },
+      data: user,
     });
   } catch (error: any) {
     res.status(400).json({
@@ -93,12 +89,7 @@ export const login = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       token,
-      user: {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-      },
+      data: user,
     });
   } catch (error: any) {
     res.status(400).json({
@@ -136,6 +127,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       experienceLevels: req.body.experienceLevels,
       workoutDurations: req.body.workoutDurations,
       workoutLocation: req.body.workoutLocation,
+      hasCompletedOnboarding: true,
     };
 
     console.log("updates:", updates);
