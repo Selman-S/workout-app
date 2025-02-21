@@ -69,25 +69,41 @@ export default function OnboardingStep3() {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { user, updateProfile } = useAuthStore();
-  const step2Data = JSON.parse(localStorage.getItem('step2Data') || '{}');
   const [userData, setUserData] = useState({
-    height: step2Data?.height || '',
-    weight: step2Data?.weight || '',
-    age: step2Data?.age || '',
-    gender: step2Data?.gender || '',
-    fitnessGoals: step2Data?.fitnessGoals || 'general-fitness',
-    experienceLevels: step2Data?.experienceLevels || 'beginner', 
-    workoutDurations: step2Data?.workoutDurations || 30,
-    workoutLocation: step2Data?.workoutLocation || 'gym',
-    workoutPerWeek: step2Data?.workoutPerWeek || 3
+    height: '',
+    weight: '',
+    age: '',
+    gender: '',
+    fitnessGoals: 'general-fitness',
+    experienceLevels: 'beginner', 
+    workoutDurations: 30,
+    workoutLocation: 'gym',
+    workoutPerWeek: 3
   });
+
+  // Load data from localStorage on client-side only
+  useEffect(() => {
+    const step2Data = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('step2Data') || '{}') : {};
+    setUserData(prevData => ({
+      ...prevData,
+      height: step2Data?.height || prevData.height,
+      weight: step2Data?.weight || prevData.weight,
+      age: step2Data?.age || prevData.age,
+      gender: step2Data?.gender || prevData.gender,
+      fitnessGoals: step2Data?.fitnessGoals || prevData.fitnessGoals,
+      experienceLevels: step2Data?.experienceLevels || prevData.experienceLevels,
+      workoutDurations: step2Data?.workoutDurations || prevData.workoutDurations,
+      workoutLocation: step2Data?.workoutLocation || prevData.workoutLocation,
+      workoutPerWeek: step2Data?.workoutPerWeek || prevData.workoutPerWeek
+    }));
+  }, []);
 
   // Profil bilgilerini yükle
   useEffect(() => {
     const loadProfileData = async () => {
       try {
         if (user?.data?._id) {
-          const profile = user
+          const profile = user;
           if (profile?.data) {
             setUserData(prevData => ({
               ...prevData,
@@ -105,13 +121,11 @@ export default function OnboardingStep3() {
 
     loadProfileData();
   }, [user]);
-console.log(userData);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-console.log("user:", user);
 
     try {
       if (!user?.data._id) {
@@ -119,7 +133,7 @@ console.log("user:", user);
       }
 
       // Step2'den gelen verileri al
-      const step2Data = JSON.parse(localStorage.getItem('userData') || '{}');
+      const step2Data = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('userData') || '{}') : {};
 
       // Profil verilerini birleştir
       const profileData: ProfileData = {
@@ -136,15 +150,15 @@ console.log("user:", user);
 
       // Profil güncelleme
       await updateProfile(profileData);
-console.log("profileData:", profileData);
+
       // Mock program oluştur - hedef ve seviyeye göre özelleştirilmiş
       const mockProgram = generateWorkoutProgram(profileData);
 
       // Mock programı localStorage'a kaydet
-      localStorage.setItem('workoutProgram', JSON.stringify(mockProgram));
-      
-      // Temizlik
-      localStorage.removeItem('userData');
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('workoutProgram', JSON.stringify(mockProgram));
+        localStorage.removeItem('userData');
+      }
       
       router.push('/workout');
     } catch (err) {
