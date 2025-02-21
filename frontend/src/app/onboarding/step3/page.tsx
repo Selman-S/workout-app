@@ -61,6 +61,7 @@ interface ProfileData {
   goal: 'muscle_gain' | 'fat_loss' | 'endurance' | 'general_fitness';
   workoutDuration: number;
   workoutLocation: 'gym' | 'home';
+  workoutPerWeek: number;
 }
 
 export default function OnboardingStep3() {
@@ -77,7 +78,8 @@ export default function OnboardingStep3() {
     fitnessGoals: step2Data?.fitnessGoals || 'general-fitness',
     experienceLevels: step2Data?.experienceLevels || 'beginner', 
     workoutDurations: step2Data?.workoutDurations || 30,
-    workoutLocation: step2Data?.workoutLocation || 'gym'
+    workoutLocation: step2Data?.workoutLocation || 'gym',
+    workoutPerWeek: step2Data?.workoutPerWeek || 3
   });
 
   // Profil bilgilerini yükle
@@ -127,8 +129,9 @@ console.log("user:", user);
         weight: parseInt(step2Data.weight),
         fitnessLevel: userData.experienceLevels as 'beginner' | 'intermediate' | 'advanced',
         goal: userData.fitnessGoals as 'muscle_gain' | 'fat_loss' | 'endurance' | 'general_fitness',
+        workoutPerWeek: userData.workoutPerWeek,
         workoutDuration: userData.workoutDurations,
-        workoutLocation: userData.workoutLocation as 'gym' | 'home'
+        workoutLocation: userData.workoutLocation as 'gym' | 'home',
       };
 
       // Profil güncelleme
@@ -327,8 +330,8 @@ console.log("profileData:", profileData);
           <div className="bg-gray-900/80 backdrop-blur-lg rounded-xl p-8 shadow-2xl">
             <h2 className="text-xl font-semibold text-white mb-6">Haftada Kaç Gün Antrenman Yapmak İstersiniz?</h2>
             <select
-              value={userData.workoutDurations}
-              onChange={(e) => setUserData({ ...userData, workoutDurations: parseInt(e.target.value) })}
+              value={userData.workoutPerWeek}
+              onChange={(e) => setUserData({ ...userData, workoutPerWeek: parseInt(e.target.value) })}
               className="w-full px-6 py-4 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-transparent transition-all duration-300"
             >
               <option value="3">3 gün / hafta</option>

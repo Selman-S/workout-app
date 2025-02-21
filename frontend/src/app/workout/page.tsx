@@ -33,25 +33,24 @@ interface User {
 }
 
 export default function WorkoutPage() {
-  const { user } = useAuthStore();
+  const { user,checkAuth } = useAuthStore();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const [workoutPlan, setWorkoutPlan] = useState<any>(null);
 
   useEffect(() => {
-
+    checkAuth();
     console.log("user:", user);
     
 
     const fetchWorkoutPlan = async () => {
       // const response = await axios.get('/api/workout-plan');
       const response = JSON.parse(localStorage.getItem('workoutProgram') || '{}');
-      console.log("response:", response);
       setWorkoutPlan(response);
       setLoading(false);
     };
     fetchWorkoutPlan();
-  }, [user]);
+  }, []);
 
 
   if (loading) {

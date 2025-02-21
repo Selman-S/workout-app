@@ -125,6 +125,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       gender: req.body.gender,
       fitnessGoals: req.body.fitnessGoals,
       experienceLevels: req.body.experienceLevels,
+      workoutPerWeek: req.body.workoutPerWeek,
       workoutDurations: req.body.workoutDurations,
       workoutLocation: req.body.workoutLocation,
       hasCompletedOnboarding: true,

@@ -14,13 +14,14 @@ export interface IUser extends Document {
   gender?: 'male' | 'female' | 'other';
   fitnessGoals?: "weight-loss" | "muscle-gain" | "endurance" | "flexibility" | "balance" | "strength";
   experienceLevels?: 'beginner' | 'intermediate' | 'advanced';
+  workoutPerWeek?: 3 | 4 | 5 | 6;
   workoutDurations?: 30 | 45 | 60 | 90;
   workoutLocation?: 'home' | 'gym';
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
   hasCompletedOnboarding: boolean;
-  
+
 }
 
 const userSchema = new Schema<IUser>({
@@ -83,6 +84,10 @@ const userSchema = new Schema<IUser>({
   hasCompletedOnboarding: {
     type: Boolean,
     default: false,
+  },
+  workoutPerWeek: {
+    type: Number,
+    enum: [3, 4, 5, 6],
   },
 }, {
   timestamps: true,

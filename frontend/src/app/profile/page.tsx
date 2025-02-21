@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import authService from '@/services/authService';
+import { useAuthStore } from '@/store/authStore';
+
 
 interface WorkoutPlan {
   days: WorkoutDay[];
@@ -23,16 +23,18 @@ interface Exercise {
 }
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
+  const [userData, setUserData] = useState<any>(null);
   const [workoutPlan, setWorkoutPlan] = useState<WorkoutPlan | null>(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuthStore();
+
   const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userData = await authService.getCurrentUser();
-        setUser(userData);
+        const userData = user;
+        setUserData(userData);
         generateWorkoutPlan(userData);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -157,20 +159,20 @@ export default function ProfilePage() {
               <div className="bg-gray-700 rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-white mb-4">Kişisel Bilgiler</h2>
                 <div className="space-y-2 text-gray-300">
-                  <p><span className="font-medium">İsim:</span> {user.name}</p>
-                  <p><span className="font-medium">Yaş:</span> {user.age}</p>
-                  <p><span className="font-medium">Boy:</span> {user.height} cm</p>
-                  <p><span className="font-medium">Kilo:</span> {user.weight} kg</p>
-                  <p><span className="font-medium">Fitness Seviyesi:</span> {user.fitnessLevel}</p>
-                  <p><span className="font-medium">Hedef:</span> {user.goal}</p>
+                  <p><span className="font-medium">İsim:</span> {userData.name}</p>
+                  <p><span className="font-medium">Yaş:</span> {userData.age}</p>
+                  <p><span className="font-medium">Boy:</span> {userData.height} cm</p>
+                  <p><span className="font-medium">Kilo:</span> {userData.weight} kg</p>
+                  <p><span className="font-medium">Fitness Seviyesi:</span> {userData.experienceLevels}</p>
+                  <p><span className="font-medium">Hedef:</span> {userData.fitnessGoals}</p>
                 </div>
               </div>
 
               <div className="bg-gray-700 rounded-lg p-6">
                 <h2 className="text-xl font-semibold text-white mb-4">Antrenman Tercihleri</h2>
                 <div className="space-y-2 text-gray-300">
-                  <p><span className="font-medium">Haftalık Antrenman:</span> {user.daysPerWeek} gün</p>
-                  <p><span className="font-medium">Antrenman Süresi:</span> {user.workoutDuration} dakika</p>
+                  <p><span className="font-medium">Haftalık Antrenman:</span> {userData.daysPerWeek} gün</p>
+                  <p><span className="font-medium">Antrenman Süresi:</span> {userData.workoutDuration} dakika</p>
                 </div>
               </div>
             </div>
