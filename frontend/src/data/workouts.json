@@ -1,0 +1,229 @@
+{
+  "exercises": {
+    "upper_body": {
+      "chest": [
+        {
+          "id": "pushup",
+          "name": "Push-up",
+          "targetMuscles": ["chest", "shoulders", "triceps"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "8-10", "rest": 60 },
+            "intermediate": { "sets": 3, "reps": "12-15", "rest": 45 },
+            "advanced": { "sets": 4, "reps": "15-20", "rest": 30 }
+          },
+          "gender": "both",
+          "description": "Göğüs, omuz ve triceps kaslarını çalıştıran temel üst vücut egzersizi",
+          "instructions": [
+            "Ellerinizi omuz genişliğinde açın",
+            "Vücudunuzu düz bir çizgi halinde tutun",
+            "Göğsünüzü yere yaklaştırıp geri itin"
+          ],
+          "variations": [
+            { "name": "Diz Üstü Push-up", "difficulty": "beginner" },
+            { "name": "İncline Push-up", "difficulty": "beginner" },
+            { "name": "Decline Push-up", "difficulty": "advanced" }
+          ],
+          "video_url": "https://example.com/pushup-tutorial"
+        }
+      ],
+      "back": [
+        {
+          "id": "pullup",
+          "name": "Pull-up",
+          "targetMuscles": ["back", "biceps", "shoulders"],
+          "equipment": "pull-up bar",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "3-5", "rest": 90 },
+            "intermediate": { "sets": 3, "reps": "8-10", "rest": 60 },
+            "advanced": { "sets": 4, "reps": "12-15", "rest": 45 }
+          },
+          "gender": "both",
+          "description": "Sırt ve biceps kaslarını güçlendiren temel üst vücut egzersizi",
+          "instructions": [
+            "Barı omuz genişliğinde kavrayın",
+            "Çenenizi barın üzerine çekin",
+            "Kontrollü bir şekilde başlangıç pozisyonuna dönün"
+          ],
+          "variations": [
+            { "name": "Assisted Pull-up", "difficulty": "beginner" },
+            { "name": "Wide-grip Pull-up", "difficulty": "intermediate" },
+            { "name": "L-sit Pull-up", "difficulty": "advanced" }
+          ]
+        }
+      ]
+    },
+    "lower_body": {
+      "legs": [
+        {
+          "id": "squat",
+          "name": "Squat",
+          "targetMuscles": ["quadriceps", "hamstrings", "glutes"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "10-12", "rest": 60 },
+            "intermediate": { "sets": 3, "reps": "12-15", "rest": 45 },
+            "advanced": { "sets": 4, "reps": "15-20", "rest": 30 }
+          },
+          "gender": "both",
+          "description": "Bacak ve kalça kaslarını güçlendiren temel alt vücut egzersizi",
+          "instructions": [
+            "Ayaklarınızı omuz genişliğinde açın",
+            "Kalçanızı geriye doğru iterek çömelin",
+            "Dizlerinizi 90 derece bükün"
+          ],
+          "variations": [
+            { "name": "Wall Squat", "difficulty": "beginner" },
+            { "name": "Jump Squat", "difficulty": "advanced" }
+          ]
+        }
+      ]
+    },
+    "core": {
+      "abs": [
+        {
+          "id": "plank",
+          "name": "Plank",
+          "targetMuscles": ["abs", "lower_back", "shoulders"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "duration": 20, "sets": 2, "rest": 45 },
+            "intermediate": { "duration": 40, "sets": 3, "rest": 30 },
+            "advanced": { "duration": 60, "sets": 4, "rest": 20 }
+          },
+          "gender": "both",
+          "description": "Karın ve core bölgesini güçlendiren statik egzersiz",
+          "instructions": [
+            "Dirsekleriniz omuz hizasında olacak şekilde pozisyon alın",
+            "Vücudunuzu düz bir çizgi halinde tutun",
+            "Karın kaslarınızı sıkın"
+          ]
+        }
+      ]
+    },
+    "cardio": {
+      "hiit": [
+        {
+          "id": "burpee",
+          "name": "Burpee",
+          "targetMuscles": ["full_body"],
+          "equipment": "bodyweight",
+          "difficulty": {
+            "beginner": { "sets": 2, "reps": "5-8", "rest": 60 },
+            "intermediate": { "sets": 3, "reps": "10-12", "rest": 45 },
+            "advanced": { "sets": 4, "reps": "15-20", "rest": 30 }
+          },
+          "gender": "both",
+          "description": "Tüm vücudu çalıştıran yüksek yoğunluklu kardio egzersizi",
+          "instructions": [
+            "Ayakta başlayın",
+            "Çömelip ellerinizi yere koyun",
+            "Bacaklarınızı geriye atıp şınav pozisyonu alın",
+            "Tekrar çömelme pozisyonuna gelin",
+            "Zıplayarak başlangıç pozisyonuna dönün"
+          ]
+        }
+      ],
+      "steady_state": [
+        {
+          "id": "running",
+          "name": "Koşu",
+          "targetMuscles": ["legs", "cardio"],
+          "equipment": "none",
+          "difficulty": {
+            "beginner": { "duration": 20, "intensity": "low" },
+            "intermediate": { "duration": 30, "intensity": "medium" },
+            "advanced": { "duration": 45, "intensity": "high" }
+          },
+          "gender": "both",
+          "description": "Kardiyovasküler dayanıklılığı artıran temel aerobik egzersiz"
+        }
+      ]
+    }
+  },
+  "workout_templates": {
+    "weight_loss": {
+      "beginner": {
+        "cardio_ratio": 0.5,
+        "strength_ratio": 0.3,
+        "hiit_ratio": 0.2
+      },
+      "intermediate": {
+        "cardio_ratio": 0.4,
+        "strength_ratio": 0.3,
+        "hiit_ratio": 0.3
+      },
+      "advanced": {
+        "cardio_ratio": 0.3,
+        "strength_ratio": 0.3,
+        "hiit_ratio": 0.4
+      }
+    },
+    "muscle_gain": {
+      "beginner": {
+        "strength_ratio": 0.7,
+        "cardio_ratio": 0.2,
+        "hiit_ratio": 0.1
+      },
+      "intermediate": {
+        "strength_ratio": 0.8,
+        "cardio_ratio": 0.1,
+        "hiit_ratio": 0.1
+      },
+      "advanced": {
+        "strength_ratio": 0.8,
+        "cardio_ratio": 0.1,
+        "hiit_ratio": 0.1
+      }
+    },
+    "general_fitness": {
+      "beginner": {
+        "cardio_ratio": 0.4,
+        "strength_ratio": 0.4,
+        "hiit_ratio": 0.2
+      },
+      "intermediate": {
+        "cardio_ratio": 0.3,
+        "strength_ratio": 0.4,
+        "hiit_ratio": 0.3
+      },
+      "advanced": {
+        "cardio_ratio": 0.3,
+        "strength_ratio": 0.4,
+        "hiit_ratio": 0.3
+      }
+    }
+  },
+  "body_parts": [
+    {
+      "id": "chest",
+      "name": "Göğüs",
+      "exercises": ["pushup", "dips", "bench_press"]
+    },
+    {
+      "id": "back",
+      "name": "Sırt",
+      "exercises": ["pullup", "row", "lat_pulldown"]
+    },
+    {
+      "id": "legs",
+      "name": "Bacak",
+      "exercises": ["squat", "lunges", "leg_press"]
+    },
+    {
+      "id": "arms",
+      "name": "Kollar",
+      "exercises": ["bicep_curl", "tricep_extension", "hammer_curl"]
+    },
+    {
+      "id": "shoulders",
+      "name": "Omuzlar",
+      "exercises": ["shoulder_press", "lateral_raise", "front_raise"]
+    },
+    {
+      "id": "abs",
+      "name": "Karın",
+      "exercises": ["plank", "crunches", "leg_raises"]
+    }
+  ]
+} 

@@ -58,14 +58,7 @@
   - Dinlenme sürelerinin optimize edilmesi
   - Toplam antrenman süresi kontrolü
 
-### 7. Beslenme ve Kalori Takibi
-- ✅ Akıllı Kalori Hesaplama
-  - Egzersiz bazlı kalori yakımı
-  - MET değerlerine göre hesaplama
-  - Kardiyovasküler aktivite kalorileri
-  - Toplam günlük kalori yakımı
-
-### 8. Profesyonel Rehberlik
+### 7. Profesyonel Rehberlik
 - ✅ Detaylı Egzersiz Notları
   - Tempo önerileri ve açıklamaları
   - Form ipuçları
@@ -77,14 +70,14 @@
   - Kardiyovasküler antrenman yönergeleri
   - Performans optimizasyon önerileri
 
-### 9. Güvenlik ve Sağlık
+### 8. Güvenlik ve Sağlık
 - ✅ Sağlık Odaklı Yaklaşım
   - Tıbbi durumların dikkate alınması
   - Sakatlık önleyici egzersiz seçimi
   - Form odaklı tempo önerileri
   - Dengeli program tasarımı
 
-### 10. Teknik Özellikler
+### 9. Teknik Özellikler
 - ✅ Modern Teknoloji Yığını
   - TypeScript ile tip güvenliği
   - MongoDB ile esnek veri modelleme

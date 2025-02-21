@@ -1,0 +1,184 @@
+{
+  "workoutImages": [
+    {
+      "id": 1,
+      "url": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd",
+      "description": "Weight training in gym",
+      "category": "strength"
+    },
+    {
+      "id": 2,
+      "url": "https://images.unsplash.com/photo-1576678927484-cc907957088c",
+      "description": "Woman doing yoga",
+      "category": "flexibility"
+    },
+    {
+      "id": 3,
+      "url": "https://images.unsplash.com/photo-1549476464-37392f717541",
+      "description": "Man doing deadlift",
+      "category": "strength"
+    },
+    {
+      "id": 4,
+      "url": "https://images.unsplash.com/photo-1591258370814-01609b341790",
+      "description": "Woman doing crossfit",
+      "category": "cardio"
+    },
+    {
+      "id": 5,
+      "url": "https://images.unsplash.com/photo-1518310383802-640c2de311b2",
+      "description": "Group training session",
+      "category": "group"
+    },
+    {
+      "id": 6,
+      "url": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48",
+      "description": "Boxing training",
+      "category": "cardio"
+    },
+    {
+      "id": 7,
+      "url": "https://images.unsplash.com/photo-1579758629938-03607ccdbaba",
+      "description": "Woman with battle ropes",
+      "category": "strength"
+    },
+    {
+      "id": 8,
+      "url": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e",
+      "description": "Running on treadmill",
+      "category": "cardio"
+    },
+    {
+      "id": 9,
+      "url": "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff",
+      "description": "Stretching exercise",
+      "category": "flexibility"
+    },
+    {
+      "id": 10,
+      "url": "https://images.unsplash.com/photo-1574680096145-d05b474e2155",
+      "description": "Dumbbell workout",
+      "category": "strength"
+    },
+    {
+      "id": 11,
+      "url": "https://images.unsplash.com/photo-1548690312-e3b507d8c110",
+      "description": "Woman doing pushups",
+      "category": "strength"
+    },
+    {
+      "id": 12,
+      "url": "https://images.unsplash.com/photo-1599058917212-d750089bc07e",
+      "description": "Pilates exercise",
+      "category": "flexibility"
+    },
+    {
+      "id": 13,
+      "url": "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61",
+      "description": "Weight lifting",
+      "category": "strength"
+    },
+    {
+      "id": 14,
+      "url": "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3",
+      "description": "Cardio training",
+      "category": "cardio"
+    },
+    {
+      "id": 15,
+      "url": "https://images.unsplash.com/photo-1518459031867-a89b944bffe4",
+      "description": "Squat exercise",
+      "category": "strength"
+    },
+    {
+      "id": 16,
+      "url": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f",
+      "description": "Cycling training",
+      "category": "cardio"
+    },
+    {
+      "id": 17,
+      "url": "https://images.unsplash.com/photo-1599058917765-a780eda07a3e",
+      "description": "Core workout",
+      "category": "strength"
+    },
+    {
+      "id": 18,
+      "url": "https://images.unsplash.com/photo-1518611012118-696072aa579a",
+      "description": "High intensity training",
+      "category": "cardio"
+    },
+    {
+      "id": 19,
+      "url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b",
+      "description": "Resistance band workout",
+      "category": "strength"
+    },
+    {
+      "id": 20,
+      "url": "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a",
+      "description": "Kettlebell exercise",
+      "category": "strength"
+    },
+    {
+      "id": 21,
+      "url": "https://images.unsplash.com/photo-1518644730709-0835105d9daa",
+      "description": "Meditation and yoga",
+      "category": "flexibility"
+    },
+    {
+      "id": 22,
+      "url": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5",
+      "description": "Box jumps",
+      "category": "cardio"
+    },
+    {
+      "id": 23,
+      "url": "https://images.unsplash.com/photo-1579126038374-6064e9370f0f",
+      "description": "Plank exercise",
+      "category": "strength"
+    },
+    {
+      "id": 24,
+      "url": "https://images.unsplash.com/photo-1598971639058-999f3bfbfb39",
+      "description": "Running outdoors",
+      "category": "cardio"
+    },
+    {
+      "id": 25,
+      "url": "https://images.unsplash.com/photo-1518310383802-640c2de311b2",
+      "description": "Group fitness class",
+      "category": "group"
+    },
+    {
+      "id": 26,
+      "url": "https://images.unsplash.com/photo-1576678927484-cc907957088c",
+      "description": "Strength training",
+      "category": "strength"
+    },
+    {
+      "id": 27,
+      "url": "https://images.unsplash.com/photo-1599058917765-a780eda07a3e",
+      "description": "Functional training",
+      "category": "strength"
+    },
+    {
+      "id": 28,
+      "url": "https://images.unsplash.com/photo-1549576490-b0b4831ef60a",
+      "description": "Rowing machine workout",
+      "category": "cardio"
+    },
+    {
+      "id": 29,
+      "url": "https://images.unsplash.com/photo-1597452485669-2c7bb5fef90d",
+      "description": "Balance training",
+      "category": "flexibility"
+    },
+    {
+      "id": 30,
+      "url": "https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3",
+      "description": "HIIT workout",
+      "category": "cardio"
+    }
+  ]
+} 

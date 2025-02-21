@@ -1,57 +1,54 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../models/User';
+import { User } from '../models/User';
 
 interface JwtPayload {
   id: string;
 }
 
-declare global {
-  namespace Express {
-    interface Request {
-      user: IUser;
-    }
-  }
-}
-
-export const protect = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+export const protect = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let token;
+    let token: string | undefined;
 
     if (req.headers.authorization?.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
 
     if (!token) {
-      res.status(401).json({ message: 'Not authorized to access this route' });
-      return;
+      return res.status(401).json({
+        success: false,
+        message: 'Bu işlem için giriş yapmanız gerekmektedir',
+      });
     }
 
-    // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
-
-    // Get user from token
-    const user = await User.findById(decoded.id).select('-password');
+    const user = await User.findById(decoded.id);
 
     if (!user) {
-      res.status(401).json({ message: 'User not found' });
-      return;
+      return res.status(401).json({
+        success: false,
+        message: 'Kullanıcı bulunamadı',
+      });
     }
 
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).json({ message: 'Not authorized to access this route' });
-    return;
+    return res.status(401).json({
+      success: false,
+      message: 'Yetkilendirme hatası',
+    });
   }
 };
 
-export const generateToken = (id: string): string => {
-  return jwt.sign({ id }, process.env.JWT_SECRET!, {
-    expiresIn: '30d'
-  });
-}; 
+export const authorize = (...roles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user?.role || !roles.includes(req.user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: 'Bu işlem için yetkiniz bulunmamaktadır',
+      });
+    }
+    next();
+  };
+};

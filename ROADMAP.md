@@ -42,17 +42,7 @@
   - Performans tahminleri
   - Kişiselleştirilmiş öneriler
 
-### 2. Beslenme Modülü
-- [ ] Beslenme planı oluşturma
-  - Makro hesaplamaları
-  - Öğün planlaması
-  - Kalori takibi
-- [ ] Yemek veritabanı
-  - Besin değerleri
-  - Tarifler
-  - Alternatif öneriler
-
-### 3. Sosyal Özellikler
+### 2. Sosyal Özellikler
 - [ ] Topluluk özellikleri
   - Kullanıcı profilleri
   - Antrenman paylaşımı

@@ -2,81 +2,107 @@ import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 export interface IUser extends Document {
-  _id: string;
-  name: string;
+  _id: mongoose.Types.ObjectId;
   email: string;
   password: string;
-  profile: {
-    age: number;
-    gender: 'male' | 'female';
-    height: number;
-    weight: number;
-    fitnessLevel: 'beginner' | 'intermediate' | 'advanced';
-    goal: 'muscle_gain' | 'fat_loss' | 'endurance' | 'general_fitness';
-    medicalConditions?: string[];
-    equipment: string[];
-  };
-  workoutPlan?: Schema.Types.ObjectId;
-  progress: Schema.Types.ObjectId[];
-  matchPassword(enteredPassword: string): Promise<boolean>;
+  name: string;
+  role: 'user' | 'trainer' | 'admin';
+  profilePicture?: string;
+  height?: number;
+  weight?: number;
+  age?: number;
+  gender?: 'male' | 'female' | 'other';
+  fitnessGoals?: "weight-loss" | "muscle-gain" | "endurance" | "flexibility" | "balance" | "strength";
+  experienceLevels?: 'beginner' | 'intermediate' | 'advanced';
+  workoutDurations?: 30 | 45 | 60 | 90;
+  workoutLocation?: 'home' | 'gym';
+  createdAt: Date;
+  updatedAt: Date;
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const userSchema = new Schema<IUser>({
-  name: {
-    type: String,
-    required: [true, 'Please add a name']
-  },
   email: {
     type: String,
-    required: [true, 'Please add an email'],
+    required: [true, 'Email adresi zorunludur'],
     unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Please add a valid email'
-    ]
+    lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
-    required: [true, 'Please add a password'],
-    minlength: 6
+    required: [true, 'Şifre zorunludur'],
+    minlength: [6, 'Şifre en az 6 karakter olmalıdır'],
+    select: false,
   },
-  profile: {
-    age: { type: Number, required: true },
-    gender: { type: String, enum: ['male', 'female'], required: true },
-    height: { type: Number, required: true },
-    weight: { type: Number, required: true },
-    fitnessLevel: {
-      type: String,
-      enum: ['beginner', 'intermediate', 'advanced'],
-      required: true
-    },
-    goal: {
-      type: String,
-      enum: ['muscle_gain', 'fat_loss', 'endurance', 'general_fitness'],
-      required: true
-    },
-    medicalConditions: [String],
-    equipment: [String]
+  name: {
+    type: String,
+    required: [true, 'Ad zorunludur'],
+    trim: true,
   },
-  workoutPlan: { type: Schema.Types.ObjectId, ref: 'WorkoutPlan' },
-  progress: [{ type: Schema.Types.ObjectId, ref: 'Progress' }]
+
+  role: {
+    type: String,
+    enum: ['user', 'trainer', 'admin'],
+    default: 'user',
+  },
+  profilePicture: {
+    type: String,
+  },
+  height: {
+    type: Number,
+  },
+  weight: {
+    type: Number,
+  },
+  age: {
+    type: Number,
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', 'other'],
+  },
+  fitnessGoals: {
+    type: String,
+    enum: ["weight-loss", "muscle-gain", "endurance", "flexibility", "balance", "strength"],
+  },
+  experienceLevels: {
+    type: String,
+    enum: ['beginner', 'intermediate', 'advanced'],
+  },
+  workoutDurations: {
+    type: Number,
+    enum: [30, 45, 60, 90],
+  },
+  workoutLocation: {
+    type: String,
+    enum: ['home', 'gym'],
+  },
 }, {
-  timestamps: true
+  timestamps: true,
 });
 
-// Encrypt password using bcrypt
+// Şifre hashleme middleware
 userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) {
+  if (!this.isModified('password')) return next();
+  
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
+  } catch (error: any) {
+    next(error);
   }
-
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Match user entered password to hashed password in database
-userSchema.methods.matchPassword = async function(enteredPassword: string): Promise<boolean> {
-  return await bcrypt.compare(enteredPassword, this.password);
+// Şifre karşılaştırma metodu
+userSchema.methods.comparePassword = async function(candidatePassword: string): Promise<boolean> {
+  try {
+    if (!this.password) return false;
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    return false;
+  }
 };
 
-export default mongoose.model<IUser>('User', userSchema); 
+export const User = mongoose.model<IUser>('User', userSchema); 

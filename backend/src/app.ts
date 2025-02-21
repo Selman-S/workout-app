@@ -1,91 +1,59 @@
 import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import rateLimit from 'express-rate-limit';
 
-// Routes
-import authRoutes from './routes/authRoutes';
-import exerciseRoutes from './routes/exerciseRoutes';
-import workoutPlanRoutes from './routes/workoutPlanRoutes';
-import progressRoutes from './routes/progressRoutes';
+import authRoutes from './routes/auth.routes';
 
-// Load environment variables
+// Env değişkenlerini yükle
 dotenv.config();
 
-// Create Express app
+// Express uygulamasını oluştur
 const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    methods: ['GET', 'POST']
-  }
-});
 
-// Middleware
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
-}));
-app.use(helmet());
+// Middleware'leri ekle
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(helmet());
+app.use(morgan('dev'));
 
-// Routes
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 dakika
+  max: 100 // her IP için maksimum istek sayısı
+});
+app.use(limiter);
+
+// MongoDB bağlantısı
+mongoose.connect(process.env.MONGODB_URI!)
+  .then(() => console.log('MongoDB bağlantısı başarılı'))
+  .catch((err) => console.error('MongoDB bağlantı hatası:', err));
+
+// Route'ları ekle
 app.use('/api/auth', authRoutes);
-app.use('/api/exercises', exerciseRoutes);
-app.use('/api/workout-plans', workoutPlanRoutes);
-app.use('/api/progress', progressRoutes);
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fitlife')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
-
-// Socket.IO Connection
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  // Workout tracking events
-  socket.on('startWorkout', (data) => {
-    console.log('Workout started:', data);
-    // Emit workout start event to client
-    socket.emit('workoutStarted', { message: 'Workout session started' });
-  });
-
-  socket.on('completeExercise', (data) => {
-    console.log('Exercise completed:', data);
-    // Emit exercise completion event to client
-    socket.emit('exerciseCompleted', { message: 'Exercise completed', data });
-  });
-
-  socket.on('endWorkout', (data) => {
-    console.log('Workout ended:', data);
-    // Emit workout end event to client
-    socket.emit('workoutEnded', { message: 'Workout session ended', data });
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Sayfa bulunamadı'
   });
 });
 
-// Basic route
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to FitLife API' });
-});
-
-// Error handling middleware
+// Error handler
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
-  res.status(500).json({ message: 'Something went wrong!' });
+  res.status(500).json({
+    success: false,
+    message: 'Sunucu hatası'
+  });
 });
 
-// Start server
+// Sunucuyu başlat
 const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-}); 
+app.listen(PORT, () => {
+  console.log(`Sunucu ${PORT} portunda çalışıyor`);
+});

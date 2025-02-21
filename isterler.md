@@ -17,23 +17,16 @@ Bunlar, algoritmanın kişiye uygun bir program oluşturabilmesi için gerekli o
 ✅ **Yağ yakma (cut)**  
 ✅ **Dayanıklılık artırma**  
 ✅ **Genel fitness (fit ve sağlıklı kalma)**  
-✅ **Esneklik ve mobilite geliştirme**  
 
 ### **Deneyim Seviyesi**  
 ✅ **Başlangıç (Hiç yapmamış veya 6 aydan az süredir spor yapan)**  
 ✅ **Orta seviye (6 ay - 2 yıl spor geçmişi olan)**  
 ✅ **İleri seviye (2 yıl ve üzeri düzenli spor yapan)**  
 
-### **Mevcut Egzersiz Alışkanlıkları**  
-✅ **Spor salonuna erişim var mı?** (Evet/Hayır)  
-✅ **Evde mi, spor salonunda mı çalışacak?**  
-✅ **Hangi ekipmanlar var? (Vücut ağırlığı, dambıl, barbell, kettlebell, direnç bantları vs.)**  
+### **Antrenman Tercihleri**  
+✅ **Antrenman Yeri** (Ev/Spor Salonu)  
 ✅ **Günlük ayırabileceği süre (dk)**  
 ✅ **Haftalık kaç gün spor yapabilir?**  
-
-### **Sağlık Durumu**  
-✅ **Herhangi bir sakatlık veya tıbbi kısıtlama var mı?**  
-✅ **Kardiyovasküler rahatsızlık, diyabet vb. sorunlar?**  
 
 ---
 
@@ -45,18 +38,18 @@ Uygulama kişiye özel program üreteceği için geniş bir **egzersiz havuzu** 
   ✅ Egzersiz adı  
   ✅ Hedef kas grubu (Göğüs, bacak, sırt, omuz, kol, core vb.)  
   ✅ Egzersiz tipi (Ağırlık, vücut ağırlığı, kardiyo, mobilite)  
-  ✅ Kullanılan ekipman (Yok, dambıl, barbell, makine vs.)  
+  ✅ Antrenman yeri (Ev, spor salonu)  
   ✅ Zorluk seviyesi (Başlangıç, Orta, İleri)  
   ✅ Ortalama süresi  
   ✅ Kalori yakımı (tahmini)  
   ✅ Video/gif desteği  
 
 Örnek:  
-| Egzersiz Adı  | Kas Grubu | Ekipman | Seviye  | Süre (dk) | Kalori Yakımı |
+| Egzersiz Adı  | Kas Grubu | Antrenman Yeri | Seviye  | Süre (dk) | Kalori Yakımı |
 |--------------|----------|---------|---------|-----------|---------------|
-| Squat       | Bacak    | Yok     | Başlangıç | 1-2 dk    | 5 kcal       |
-| Bench Press | Göğüs    | Barbell | Orta     | 2-3 dk    | 7 kcal       |
-| Jump Rope   | Kardiyo  | Yok     | Başlangıç | 3-5 dk    | 10 kcal      |
+| Push-up      | Göğüs    | Ev      | Başlangıç | 1-2 dk    | 5 kcal       |
+| Bench Press  | Göğüs    | Gym     | Orta     | 2-3 dk    | 7 kcal       |
+| Jump Rope    | Kardiyo  | Her yer  | Başlangıç | 3-5 dk    | 10 kcal      |
 
 - **Antrenman Türleri**  
   Kullanıcının **hedefine ve deneyimine** göre programın yapısını belirlemelisin.  
@@ -71,18 +64,19 @@ Uygulama kişiye özel program üreteceği için geniş bir **egzersiz havuzu** 
   - **Full Body Workout**  
   - **Upper-Lower Split**  
   - **HIIT Programı**  
-  - **Dumbbell Only (Ev için)**  
+  - **Ev Programı**  
+  - **Spor Salonu Programı**  
 
 ---
 
 ## **3. Algoritma ile Kişiye Özel Program Nasıl Oluşturulur?**
 ### **1️⃣ Kullanıcıdan alınan verilerle kategorize et**
 Örneğin:  
-✅ Erkek, 25 yaşında, 175 cm, 75 kg, **kas kazanmak istiyor**, **haftada 4 gün çalışabilir**, **spor salonuna erişimi var**, **orta seviyede**.  
+✅ Erkek, 25 yaşında, 175 cm, 75 kg, **kas kazanmak istiyor**, **haftada 4 gün çalışabilir**, **spor salonunda antrenman yapacak**, **orta seviyede**.  
 🡆 **Bu kişiye uygun bir hipertrofi odaklı program oluştur.**  
 
 ### **2️⃣ Egzersiz seçimi**
-- Kullanıcının deneyim seviyesi ve ekipmanına göre uygun egzersizleri veritabanından çek.  
+- Kullanıcının deneyim seviyesi ve antrenman yerine göre uygun egzersizleri veritabanından çek.  
 - **Split seçimi:** Haftada 4 gün antrenman yapabildiği için **Upper-Lower Split** iyi olabilir.  
 - **Egzersiz sıralaması:** Büyük kaslardan küçüklere doğru olmalı.  
 
