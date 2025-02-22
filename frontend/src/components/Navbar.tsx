@@ -4,10 +4,16 @@ import Link from 'next/link';
 import { useAuthStore } from '@/store/authStore';
 
 export default function Navbar() {
-  const { user, isAuthenticated, logout } = useAuthStore();
-
+  // const { user, isAuthenticated, logout } = useAuthStore();
+const user = {
+  data: {
+    name: 'John Doe'
+  }
+};
+const isAuthenticated = true;
   const handleLogout = () => {
-    logout();
+    // logout();
+    console.log('logout');
   };
 
   return (
